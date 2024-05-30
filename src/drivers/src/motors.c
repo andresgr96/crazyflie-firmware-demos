@@ -178,26 +178,26 @@ float motorsCompensateBatteryVoltage(uint32_t id, float iThrust, float supplyVol
   #ifdef CONFIG_ENABLE_THRUST_BAT_COMPENSATED
   ASSERT(id < NBR_OF_MOTORS);
 
-  if (motorMap[id]->drvType == BRUSHED)
-  {
-    /*
-    * A LiPo battery is supposed to be 4.2V charged, 3.7V mid-charge and 3V
-    * discharged.
-    *
-    * A suitable sanity check for disabling the voltage compensation would be
-    * under 2V. That would suggest a damaged battery. This protects against
-    * rushing the motors on bugs and invalid voltage levels.
-    */
-    if (supplyVoltage < 2.0f)
-    {
-      return iThrust;
-    }
+  // if (motorMap[id]->drvType == BRUSHED)
+  // {
+  //   /*
+  //   * A LiPo battery is supposed to be 4.2V charged, 3.7V mid-charge and 3V
+  //   * discharged.
+  //   *
+  //   * A suitable sanity check for disabling the voltage compensation would be
+  //   * under 2V. That would suggest a damaged battery. This protects against
+  //   * rushing the motors on bugs and invalid voltage levels.
+  //   */
+  //   if (supplyVoltage < 2.0f)
+  //   {
+  //     return iThrust;
+  //   }
 
-    float thrust = (iThrust / 65536.0f) * 60;
-    float volts = -0.0006239f * thrust * thrust + 0.088f * thrust;
-    float ratio = volts / supplyVoltage;
-    return UINT16_MAX * ratio;
-  }
+  //   float thrust = (iThrust / 65536.0f) * 60;
+  //   float volts = -0.0006239f * thrust * thrust + 0.088f * thrust;
+  //   float ratio = volts / supplyVoltage;
+  //   return UINT16_MAX * ratio;
+  // }
   #endif
 
   return iThrust;
